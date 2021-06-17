@@ -8,32 +8,57 @@ public class Plant : MonoBehaviour
     [SerializeField] private int thirstStart;
     [SerializeField] private int thirstDecline;
     [SerializeField] private int thirstMax;
+    [SerializeField] private int maxGrowthPhase;
+    [SerializeField] string plantName;
+
+    [SerializeField] GameObject plantPanel;
+    PlantPanelUI plantPanelScript;
+    private Animator plantAnimator;
+
     private int currentThirst;
     private int growthPhase;
-    [SerializeField] private int maxGrowthPhase;
-
-    [SerializeField] string plantName;
-    [SerializeField] GameObject waterButton;
-    [SerializeField] Text plantTypeText;
-    public Text plantStatusText;
-
     private bool isThirsty;
-    private Animator plantAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
-        plantAnimator = GetComponent<Animator>();
-        currentThirst = thirstMax;
-        InvokeRepeating("ThirstCountdown", thirstStart, thirstDecline);
+        Setup();
 
-        plantTypeText.text = plantName;
-        UpdateThirstMessage();
+        InvokeRepeating("ThirstCountdown", thirstStart, thirstDecline);
+        
     }
 
     private void OnMouseDown()
     {
-        Water();
+        FocusThisPlant();
+    }
+
+    void Setup()
+    {
+        plantAnimator = GetComponent<Animator>();
+        currentThirst = thirstMax;
+        plantPanelScript = plantPanel.GetComponent<PlantPanelUI>();
+    }
+
+    private void FocusThisPlant()
+    {
+        if (plantPanelScript.focus == gameObject && plantPanel.activeSelf)
+        {
+            plantPanel.SetActive(false);
+        }
+        else
+        {
+            plantPanel.SetActive(true);
+            plantPanelScript.focus = gameObject;
+            plantPanelScript.focusScript = gameObject.GetComponent<Plant>();
+            plantPanelScript.ShowPlantInfo(plantName, isThirsty);
+        }
+        
+    }
+
+    public void SendPlantInfo()
+    {
+        plantPanelScript.ShowPlantInfo(plantName, isThirsty);
     }
 
     public void Water()
@@ -42,21 +67,11 @@ public class Plant : MonoBehaviour
         {
             isThirsty = false;
             currentThirst = thirstMax;
-            UpdateThirstMessage();
             Grow();
-            waterButton.SetActive(false);
-        }
-    }
-
-    void UpdateThirstMessage()
-    {
-        if (currentThirst > 0)
-        {
-            plantStatusText.text = "Status: Happy";
-        }
-        else
-        {
-            plantStatusText.text = "Status: Thirsty";
+            if (plantPanelScript.focus == gameObject)
+            {
+                SendPlantInfo();
+            }
         }
     }
 
@@ -69,9 +84,12 @@ public class Plant : MonoBehaviour
         else
         {
             isThirsty = true;
-            waterButton.SetActive(true);
         }
-        UpdateThirstMessage();
+        if (plantPanelScript.focus == gameObject)
+        {
+            SendPlantInfo();
+        }
+        
     }
     void Grow()
     {
@@ -80,7 +98,5 @@ public class Plant : MonoBehaviour
             growthPhase += 1;
             plantAnimator.SetInteger("growStage", growthPhase);
         }
-        
-
     }
 }
