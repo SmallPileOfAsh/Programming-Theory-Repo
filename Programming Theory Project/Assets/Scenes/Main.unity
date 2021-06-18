@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cactus
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5d22bbe1f49f7b141a3148af513eaca3, type: 3}
+      propertyPath: m_TagString
+      value: Plant
+      objectReference: {fileID: 0}
     - target: {fileID: 5074512353664290214, guid: 5d22bbe1f49f7b141a3148af513eaca3, type: 3}
       propertyPath: m_DirtyAABB
       value: 0
@@ -482,7 +486,6 @@ MonoBehaviour:
   pickFruitButton: {fileID: 2144060990}
   plantTypeText: {fileID: 1076558389}
   pepperCountText: {fileID: 1763287161}
-  focus: {fileID: 0}
   focusScript: {fileID: 0}
 --- !u!114 &750784459
 MonoBehaviour:
@@ -976,6 +979,7 @@ MonoBehaviour:
   flowerModel: {fileID: 1488892686}
   myMaterial: {fileID: 2100000, guid: a7d5e6ad770c1714fbe451ecd65c5d8e, type: 2}
   isFruiting: 0
+  isHarvestable: 0
 --- !u!65 &1368088413
 BoxCollider:
   m_ObjectHideFlags: 0

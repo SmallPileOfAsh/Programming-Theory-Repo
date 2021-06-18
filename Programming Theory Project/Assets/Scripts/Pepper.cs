@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Pepper : Plant //INHERITANCE
 {
-    public GameObject fruitModel;
-    public GameObject flowerModel;
+    [SerializeField] private GameObject fruitModel;
+    [SerializeField] private GameObject flowerModel;
 
     [SerializeField] private Material myMaterial;
 
@@ -18,24 +18,24 @@ public class Pepper : Plant //INHERITANCE
     private int fruitStage = 0;
     private int maxFruitStage = 3;
 
-    private bool isFlowering = false;
-    public bool isFruiting = false;
-    public bool isHarvestable = false;
+    private bool isFlowering;
+    private bool isFruiting;
+    public bool isHarvestable {get; private set;}
 
-    
-
-    protected override void Start()
+    //Add Pepper Specific Setup
+    protected override void Setup()
     {
-        base.Start();
+        base.Setup();
         flowerModel = GameObject.Find("Flower");
         startColor = myMaterial.color;
         flowerAnimator = flowerModel.GetComponent<Animator>();
         fruitAnimator = fruitModel.GetComponent<Animator>();
         flowerModel.SetActive(false);
         fruitModel.SetActive(false);
-
     }
 
+    //POLYMORPHISM
+    //Add flowering and fruiting to grow process
     protected override void Grow()
     {
         if (growthStage == maxGrowthStage && !isFlowering && !isFruiting)
@@ -60,6 +60,7 @@ public class Pepper : Plant //INHERITANCE
         } 
     }
 
+    //Start flowering
     void StartFlowering()
     {
         flowerModel.SetActive(true);
@@ -69,6 +70,7 @@ public class Pepper : Plant //INHERITANCE
         flowerAnimator.Play("Grow Stage 0");
     }
 
+    //Start Fruiting
     void StartFruiting()
     {
         isFlowering = false;
@@ -83,6 +85,7 @@ public class Pepper : Plant //INHERITANCE
         myMaterial.SetColor("_Color", Color.green);
     }
 
+    //Grow Flower after it has been started
     void GrowFlower()
     { 
         if (flowerStage < maxFlowerStage)
@@ -92,6 +95,7 @@ public class Pepper : Plant //INHERITANCE
         }
     }
 
+    //Grow fruit after it has been started
     void GrowFruit()
     {
         if (fruitStage < maxFruitStage)
@@ -107,6 +111,7 @@ public class Pepper : Plant //INHERITANCE
         
     }
 
+    //harvest fruit
     public void Harvest()
     {
         if (isHarvestable)

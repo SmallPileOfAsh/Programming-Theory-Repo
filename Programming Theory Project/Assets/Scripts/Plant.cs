@@ -5,23 +5,24 @@ using UnityEngine.UI;
 
 public class Plant : MonoBehaviour
 {
-    [SerializeField] protected int thirstStart;
-    [SerializeField] protected int thirstDecline;
-    [SerializeField] protected int thirstMax;
+    [SerializeField] private int thirstStart;
+    [SerializeField] private int thirstDecline;
+    [SerializeField] private int thirstMax;
     [SerializeField] protected int maxGrowthStage;
-    [SerializeField] protected string plantName;
+    [SerializeField] private string plantName;
 
-    [SerializeField] GameObject plantPanel;
+    [SerializeField] private GameObject plantPanel;
     protected PlantPanelUI plantPanelScript;
-    protected Animator plantAnimator;
+    private Animator plantAnimator;
 
-    protected int currentThirst;
+    private int currentThirst;
     protected int growthStage;
-    protected bool isThirsty;
+    private bool isThirsty;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        //ABSTRACTION
         Setup();
 
         InvokeRepeating("ThirstCountdown", thirstStart, thirstDecline);
@@ -30,16 +31,18 @@ public class Plant : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //ABSTRACTION
         FocusThisPlant();
     }
 
-    void Setup()
+    protected virtual void Setup()
     {
         plantAnimator = GetComponent<Animator>();
         currentThirst = thirstMax;
         plantPanelScript = plantPanel.GetComponent<PlantPanelUI>();
     }
 
+    //Have PlantPanel focus this plant and relevant info
     private void FocusThisPlant()
     {
         if (plantPanelScript.focus == gameObject && plantPanel.activeSelf)
@@ -56,11 +59,14 @@ public class Plant : MonoBehaviour
         
     }
 
+    //Send plant information to PlantPanelUI
     public void SendPlantInfo()
     {
         plantPanelScript.ShowPlantInfo(plantName, isThirsty);
     }
 
+
+    //Water plant and refresh panel display information accordingly
     public void Water()
     {
         if (isThirsty)
@@ -75,6 +81,7 @@ public class Plant : MonoBehaviour
         }
     }
 
+    //Decrease plant thirst
     void ThirstCountdown()
     {
         if (currentThirst > 0)
@@ -91,6 +98,8 @@ public class Plant : MonoBehaviour
         }
         
     }
+
+    //Grow Plant
     protected virtual void Grow()
     {
         if (growthStage < maxGrowthStage)

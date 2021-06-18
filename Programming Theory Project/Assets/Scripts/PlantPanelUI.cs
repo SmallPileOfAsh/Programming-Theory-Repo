@@ -11,17 +11,52 @@ public class PlantPanelUI : MonoBehaviour
     [SerializeField] private Text plantTypeText;
     [SerializeField] private Text pepperCountText;
 
-    public GameObject focus;
+    private GameObject myFocus;
+
+    //ENCAPSULATION
+    public GameObject focus
+    {
+        get { return myFocus; }
+        set
+        {
+            if (!value.CompareTag("Plant") && !value.CompareTag("Fruit"))
+            {
+                Debug.LogError("PlantPanelUI focus must be a plant");
+            }
+            else
+            {
+                myFocus = value;
+            }
+        }
+    }
+
     public Plant focusScript;
 
-    private int pepperCount = 0;
+    //ENCAPSULATION
+    private int pepperCountNumber = 0;
+    private int pepperCount
+    {
+        get {return pepperCountNumber;}
+        set
+        {
+            if (value < 0)
+            {
+                Debug.LogError("Cannot have negative number of peppers!");
+            }
+            else
+            {
+                pepperCountNumber = value;
+            }
+        }
+    }
 
-
+    //Hide Plant Panel UI
     public void Hide()
     {
         gameObject.SetActive(false);
     }
 
+    //Show Relevant Plant Info & Buttons in Panel
     public void ShowPlantInfo(string plantName, bool isThirsty)
     {
         plantTypeText.text = plantName;
@@ -42,7 +77,7 @@ public class PlantPanelUI : MonoBehaviour
         }
         else
         {
-            if (focus.GetComponent<Pepper>().isHarvestable)
+            if (myFocus.GetComponent<Pepper>().isHarvestable)
             {
                 pickFruitButton.SetActive(true);
             }
@@ -54,16 +89,19 @@ public class PlantPanelUI : MonoBehaviour
         }
     }
 
-    public void HarvestFocusPlant()
+    //Harvest Fruit from focus plant
+    private void HarvestFocusPlant()
     {
-        focus.GetComponent<Pepper>().Harvest();
+        myFocus.GetComponent<Pepper>().Harvest();
     }
 
-    public void WaterFocusPlant()
+    //Water focus plant
+    private void WaterFocusPlant()
     {
         focusScript.Water();
     }
 
+    //Increase pepper count
     public void IncreasePepperCount()
     {
         pepperCount++;
