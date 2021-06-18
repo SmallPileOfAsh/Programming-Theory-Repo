@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: growStage
+    m_ConditionEvent: growthStage
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6205282686706299257}
@@ -61,12 +61,12 @@ AnimatorController:
   m_Name: PepperAnimation
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: growStage
+  - m_Name: growthStage
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -94,10 +94,10 @@ AnimatorStateMachine:
     m_Position: {x: 380, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5664530607225605836}
-    m_Position: {x: 380, y: -20, z: 0}
+    m_Position: {x: 380, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6205282686706299257}
-    m_Position: {x: 380, y: 60, z: 0}
+    m_Position: {x: 380, y: 100, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -170,7 +170,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: growStage
+    m_ConditionEvent: growthStage
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5664530607225605836}

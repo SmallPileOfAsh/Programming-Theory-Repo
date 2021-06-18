@@ -5,22 +5,22 @@ using UnityEngine.UI;
 
 public class Plant : MonoBehaviour
 {
-    [SerializeField] private int thirstStart;
-    [SerializeField] private int thirstDecline;
-    [SerializeField] private int thirstMax;
-    [SerializeField] private int maxGrowthPhase;
-    [SerializeField] string plantName;
+    [SerializeField] protected int thirstStart;
+    [SerializeField] protected int thirstDecline;
+    [SerializeField] protected int thirstMax;
+    [SerializeField] protected int maxGrowthStage;
+    [SerializeField] protected string plantName;
 
     [SerializeField] GameObject plantPanel;
-    PlantPanelUI plantPanelScript;
-    private Animator plantAnimator;
+    protected PlantPanelUI plantPanelScript;
+    protected Animator plantAnimator;
 
-    private int currentThirst;
-    private int growthPhase;
-    private bool isThirsty;
+    protected int currentThirst;
+    protected int growthStage;
+    protected bool isThirsty;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         Setup();
 
@@ -91,12 +91,12 @@ public class Plant : MonoBehaviour
         }
         
     }
-    void Grow()
+    protected virtual void Grow()
     {
-        if (growthPhase < maxGrowthPhase)
+        if (growthStage < maxGrowthStage)
         {
-            growthPhase += 1;
-            plantAnimator.SetInteger("growStage", growthPhase);
+            growthStage += 1;
+            plantAnimator.SetInteger("growthStage", growthStage);
         }
     }
 }

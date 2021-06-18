@@ -15,7 +15,22 @@ ModelImporter:
   - first:
       74: -4206741149509334755
     second: Grow Stage 3
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cactus
+    second: {fileID: 2100000, guid: 707367b6dabd03c4897026c61de7295c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dirt
+    second: {fileID: 2100000, guid: 92a17e39c6dda6748a1f919ee9db613d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Flowerpot
+    second: {fileID: 2100000, guid: 5bb7c76fb5df77e42bf847a4481914e0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
